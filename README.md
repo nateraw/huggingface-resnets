@@ -4,7 +4,8 @@
 pip install modelz
 ```
 
-```
+```python
+import torch
 from modelz import ResnetModel
 
 model = ResnetModel.from_pretrained('nateraw/resnet50')
