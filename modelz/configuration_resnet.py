@@ -21,6 +21,7 @@ class ResnetConfig:
         width_per_group=64,
         replace_stride_with_dilation=None,
         norm_layer=None,
+        **kwargs
     ):
         self.block = block
         self.layers = layers
@@ -30,6 +31,13 @@ class ResnetConfig:
         self.width_per_group = width_per_group
         self.replace_stride_with_dilation = replace_stride_with_dilation
         self.norm_layer = norm_layer
+
+        for key, value in kwargs.items():
+            try:
+                setattr(self, key, value)
+            except AttributeError as err:
+                logger.error(f"Can't set {key} with value {value} for {self}")
+                raise err
 
     def to_dict(self) -> Dict[str, Any]:
         """
